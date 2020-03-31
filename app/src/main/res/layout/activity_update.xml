@@ -8,19 +8,21 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:id="@+id/edAssunto"
-        android:hint="@string/assunto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/edAssunto_Update"
+        android:layout_marginBottom="20sp"
+        android:hint="@string/assunto"></EditText>
 
     <EditText
         android:layout_marginTop="60dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:id="@+id/edLocal"
-        android:hint="@string/local"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/edLocal_Update"
+        android:layout_marginBottom="20sp"
+        android:hint="@string/local"></EditText>
 
     <LinearLayout
         android:layout_alignParentBottom="true"
@@ -29,24 +31,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_margin="5dp"
             android:textColor="#FFF"
-            android:background="@color/colorPrimary"
-            android:id="@+id/btnAdd"
-            android:text="@string/add"
+            android:background="#B00020"
+            android:text="@string/update"
+            android:layout_gravity="center"
+            android:id="@+id/btnUpdate_Update"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content" />
 
-        <Button
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:background="@color/colorPrimary"
-            android:layout_weight="1"
-            android:id="@+id/btnShowAll"
-            android:text="@string/see" />
+
     </LinearLayout>
-
 </RelativeLayout>
