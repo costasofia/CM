@@ -3,7 +3,7 @@
     <string name="assunto">Assunto</string>
     <string name="local">Local</string>
     <string name="inicio">Bem-Vindo!</string>
-    <string name="user">Utilizador</string>
+    <string name="user">Nome</string>
     <string name="pass">Palavra-chave</string>
     <string name="update">Atualizar</string>
     <string name="apagar">Eliminar</string>
@@ -14,4 +14,8 @@
     <string name="mensagem2">Eliminar</string>
     <string name="mensagem3">Quer eliminar a nota?</string>
     <string name="mensagem4">Cancelar</string>
+    <string name="register">Criar nova conta</string>
+    <string name="name">Nome</string>
+    <string name="email">Email</string>
+    <string name="registar">Registar</string>
 </resources>
