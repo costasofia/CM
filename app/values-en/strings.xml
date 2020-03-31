@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CM</string>
+    <string name="assunto">Assunto</string>
+    <string name="local">Local</string>
+    <string name="inicio">Bem-Vindo!</string>
+    <string name="user">Utilizador</string>
+    <string name="pass">Palavra-chave</string>
+    <string name="update">Atualizar</string>
+    <string name="apagar">Eliminar</string>
+    <string name="iniciar">Iniciar Sessão</string>
+    <string name="add">Adicionar</string>
+    <string name="see">Ver Notas</string>
+    <string name="mensagem">Insira assunto e local</string>
+    <string name="mensagem2">Eliminar</string>
+    <string name="mensagem3">Quer eliminar a nota?</string>
+    <string name="mensagem4">Cancelar</string>
+</resources>
