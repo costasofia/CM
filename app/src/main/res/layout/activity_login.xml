@@ -38,7 +38,7 @@
             app:srcCompat="@drawable/ic_person_outline_black_24dp" />
 
         <EditText
-            android:id="@+id/edtUser"
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -65,6 +65,7 @@
             android:paddingLeft="5dp" />
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

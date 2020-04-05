@@ -18,4 +18,5 @@
     <string name="name">Nome</string>
     <string name="email">Email</string>
     <string name="registar">Registar</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
