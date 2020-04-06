@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText edAssunto, edLocal;
-    Button btnAdd, btnShowAll;
+    Button btnAdd, btnShowAll, button2;
     DBOpenHelper dbOpenHelper;
 
     @Override
@@ -23,7 +23,15 @@ public class MainActivity extends AppCompatActivity {
 
         edAssunto = (EditText) findViewById(R.id.edAssunto);
         edLocal = (EditText) findViewById(R.id.edLocal);
+        button2 = (Button) findViewById(R.id.button2);
 
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
         btnAdd = (Button) findViewById(R.id.btnAdd);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
