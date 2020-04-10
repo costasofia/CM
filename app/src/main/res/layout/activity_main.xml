@@ -48,11 +48,6 @@
             android:id="@+id/btnShowAll"
             android:text="@string/see" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:text="Button" />
     </LinearLayout>
 
 
