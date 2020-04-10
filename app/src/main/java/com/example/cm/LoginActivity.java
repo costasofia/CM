@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     Claim subscriptionMetaData = jwt.getClaim("Email");
                     String parsedValue = subscriptionMetaData.asString();
                     if (editEmail.getText().toString().equals(parsedValue)) {
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Sessão iniciada com sucesso", Toast.LENGTH_SHORT).show();
                         finish();

@@ -14,4 +14,6 @@
     <string name="mensagem2">Eliminar</string>
     <string name="mensagem3">Quer eliminar a nota?</string>
     <string name="mensagem4">Cancelar</string>
+    <string name="novo">Registar</string>
+    <string name="email">Email</string>
 </resources>
