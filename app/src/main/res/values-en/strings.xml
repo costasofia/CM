@@ -3,7 +3,7 @@
     <string name="assunto">Subject matter</string>
     <string name="local">Location</string>
     <string name="inicio">Welcome</string>
-    <string name="user">User</string>
+    <string name="user">Name</string>
     <string name="pass">Password</string>
     <string name="update">Update</string>
     <string name="apagar">Delete</string>
@@ -14,4 +14,8 @@
     <string name="mensagem2">Delete</string>
     <string name="mensagem3">Do you want to delete the note?</string>
     <string name="mensagem4">Cancel</string>
+    <string name="register">Create new account</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="registar">Register</string>
 </resources>
