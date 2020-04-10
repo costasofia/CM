@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import java.util.jar.Attributes;
 public class RegisterActivity extends AppCompatActivity {
     Button btRegistar;
     EditText editPassword, editEmail, editUser;
+    ImageView btnBack;
 
 
     @Override
@@ -47,17 +49,26 @@ public class RegisterActivity extends AppCompatActivity {
         editPassword = (EditText) findViewById(R.id.edtPassword);
         editUser = (EditText) findViewById(R.id.edtUser);
         btRegistar = (Button) findViewById(R.id.btnRegistar);
+        btnBack = (ImageView) findViewById(R.id.back);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btRegistar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Registar();
+                registar();
             }
         });
 
     }
 
-    private void Registar() {
+    private void registar() {
         String URL = VolleySingleton.URL + "utilizador/register";
 
         StringRequest stringResquest = new StringRequest(Request.Method.POST, URL,
@@ -67,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         Log.d("REGISTAR", "onResponse: " + response.length());
                         try {
-                            if (response.length() == 13) {
+                            if (response.length() == 11) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 Toast.makeText(getApplicationContext(), "Registado com sucesso", Toast.LENGTH_SHORT).show();

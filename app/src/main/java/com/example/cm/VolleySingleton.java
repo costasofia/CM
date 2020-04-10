@@ -12,7 +12,7 @@ public class VolleySingleton {
     private RequestQueue mRequestQueue;
     private static Context mContext;
 
-    public static String URL = "http://192.168.1.67:4000/";
+    public static String URL = "http://192.168.1.67:5000/";
 
     private VolleySingleton(Context context) {
         mContext = context;

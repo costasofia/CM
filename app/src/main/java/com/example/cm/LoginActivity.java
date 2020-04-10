@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,6 +32,8 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     EditText editEmail, editPassword;
     Button btnLogin;
+    TextView btnRegistar;
+    // String URL = "http://192.168.1.67:5000/utilizador/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +43,28 @@ public class LoginActivity extends AppCompatActivity {
         editEmail = (EditText) findViewById(R.id.edtEmail);
         editPassword = (EditText) findViewById(R.id.edtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnRegistar = (TextView) findViewById(R.id.registar);
+
+        btnRegistar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                login();
-                startActivity(intent);
+                if (editPassword.getText().toString().equals("") && editEmail.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Insira uma password e um email", Toast.LENGTH_SHORT).show();
+                } else if (editPassword.getText().toString().equals("") && editEmail.getText().toString() != ("")) {
+                    Toast.makeText(getApplicationContext(), "Insira uma password", Toast.LENGTH_SHORT).show();
+                } else if (editEmail.getText().toString().equals("") && editPassword.getText().toString() != ("")) {
+                    Toast.makeText(getApplicationContext(), "Insira um email", Toast.LENGTH_SHORT).show();
+                } else {
+                    login();
+                }
             }
         });
     }
@@ -63,8 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                     Claim subscriptionMetaData = jwt.getClaim("Email");
                     String parsedValue = subscriptionMetaData.asString();
                     if (editEmail.getText().toString().equals(parsedValue)) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Sessão iniciada com sucesso", Toast.LENGTH_SHORT).show();
-
+                        finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "O Email não existe", Toast.LENGTH_SHORT).show();
 
