@@ -35,7 +35,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title(latLng + " ; " + latLng.longitude);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                 mMap.addMarker(markerOptions);
 
 

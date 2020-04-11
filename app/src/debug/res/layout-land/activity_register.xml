@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="113dp"
         android:layout_marginBottom="30dp"
-        app:srcCompat="@drawable/ic_person_outline_black_24dp" />
+        app:srcCompat="@drawable/ic_person_black_24dp" />
 
 
     <EditText
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="340dp"
         android:background="#B00020"
-        android:text="@string/registar"
+        android:text="@string/novo"
         android:textColor="#FFF"
         android:textSize="18sp" />
 
