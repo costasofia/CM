@@ -79,9 +79,14 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     JWT jwt = new JWT(response);
                     Claim subscriptionMetaData = jwt.getClaim("Email");
+                    Claim data = jwt.getClaim("IdUtilizador");
                     String parsedValue = subscriptionMetaData.asString();
+                    String IdUtilizador = data.asString();
                     if (editEmail.getText().toString().equals(parsedValue)) {
                         Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                        Bundle params = new Bundle();
+                        params.putString("IdUtilizador", IdUtilizador);
+                        intent.putExtras(params);
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Sessão iniciada com sucesso", Toast.LENGTH_SHORT).show();
                         finish();
@@ -120,10 +125,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-
                 String password = editPassword.getText().toString().trim();
                 param.put("Password", password);
                 param.put("Email", editEmail.getText().toString().trim());
+
 
                 return param;
             }
