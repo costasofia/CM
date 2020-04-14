@@ -1,26 +1,26 @@
 package com.example.cm;
 
+
 public class Ponto {
-    public int IdPonto;
-    public String Tema;
-    public String Descricao;
-    public float Lat;
-    public float Lng;
-    public String Imagem;
-    public int IdUtilizador;
+    private int IdPonto;
+    private String Tema;
+    private String Descricao;
+    private double Longitude;
+    private double Latitude;
+    private String Imagem;
+    private int IdUtilizador;
 
     public Ponto() {
-
     }
 
-    public Ponto(int idPonto, String tema, String descricao, float lat, float lng, String imagem, int idUtilizador) {
-        IdPonto = idPonto;
-        Tema = tema;
-        Descricao = descricao;
-        Lat = lat;
-        Lng = lng;
-        Imagem = imagem;
-        IdUtilizador = idUtilizador;
+    public Ponto(int IdPonto, String Tema, String Descricao, double Longitude, double Latitude, String Imagem, int IdUtilizador) {
+        this.IdPonto = IdPonto;
+        this.Tema = Tema;
+        this.Descricao = Descricao;
+        this.Longitude = Longitude;
+        this.Latitude = Latitude;
+        this.Imagem = Imagem;
+        this.IdUtilizador = IdUtilizador;
     }
 
     public int getIdPonto() {
@@ -47,20 +47,20 @@ public class Ponto {
         Descricao = descricao;
     }
 
-    public float getLat() {
-        return Lat;
+    public double getLongitude() {
+        return Longitude;
     }
 
-    public void setLat(float lat) {
-        Lat = lat;
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
     }
 
-    public float getLng() {
-        return Lng;
+    public double getLatitude() {
+        return Latitude;
     }
 
-    public void setLng(float lng) {
-        Lng = lng;
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
     }
 
     public String getImagem() {
@@ -78,4 +78,7 @@ public class Ponto {
     public void setIdUtilizador(int idUtilizador) {
         IdUtilizador = idUtilizador;
     }
+
 }
+
+

@@ -1,8 +1,10 @@
 package com.example.cm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     EditText editEmail, editPassword;
+    String IdUtilizador;
     Button btnLogin;
     TextView btnRegistar;
     // String URL = "http://192.168.1.67:5000/utilizador/login";
@@ -39,6 +42,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
 
         editEmail = (EditText) findViewById(R.id.edtEmail);
         editPassword = (EditText) findViewById(R.id.edtPassword);
@@ -80,27 +89,27 @@ public class LoginActivity extends AppCompatActivity {
                     JWT jwt = new JWT(response);
                     Claim subscriptionMetaData = jwt.getClaim("Email");
                     Claim data = jwt.getClaim("IdUtilizador");
-                    String parsedValue = subscriptionMetaData.asString();
                     String IdUtilizador = data.asString();
+                    String parsedValue = subscriptionMetaData.asString();
+
                     if (editEmail.getText().toString().equals(parsedValue)) {
-                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                        Intent Intent = new Intent(LoginActivity.this, MapsActivity.class);
                         Bundle params = new Bundle();
                         params.putString("IdUtilizador", IdUtilizador);
-                        intent.putExtras(params);
-                        startActivity(intent);
+                        Intent.putExtras(params);
+                        startActivity(Intent);
                         Toast.makeText(getApplicationContext(), "Sessão iniciada com sucesso", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "O Email não existe", Toast.LENGTH_SHORT).show();
-
                     }
-
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Password incorreta", Toast.LENGTH_SHORT).show();
                 }
 
             }
         },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {

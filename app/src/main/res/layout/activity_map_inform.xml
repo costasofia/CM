@@ -37,37 +37,33 @@
         android:hint="@string/descricao"
         android:paddingLeft="5dp" />
 
-    <Button
-        android:id="@+id/btnCancelar"
+    <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="219dp"
-        android:layout_marginBottom="73dp"
-        android:background="#B00020"
-        android:text="@string/mensagem4"
-        android:textColor="#FFF"
-        android:textSize="18sp" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnRegista"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="215dp"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="73dp"
-        android:background="#B00020"
-        android:text="@string/add"
-        android:textColor="#FFF"
-        android:textSize="18sp" />
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#B00020"
+            android:text="@string/mensagem4"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/btnRegista"
+            android:layout_margin="5dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#B00020"
+            android:text="@string/add"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+
 </RelativeLayout>

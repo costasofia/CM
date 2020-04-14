@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,32 +34,40 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.String.valueOf;
+
 public class MapInformActivity extends AppCompatActivity {
     ImageButton buttonimg;
     Button btnCancelar, btnRegista;
-    EditText edtTema, edtDescricao;
+    EditText editTema, editDescricao;
+    String Tema, Descricao, IdUtilizador;
+    Double Latitude, Longitude;
+    String lat, lng;
+    String encoded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_inform);
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            Bundle params = intent.getExtras();
-            if (params != null) {
-                String IdUtilizador = params.getString("IdUtilizador");
-            }
-        }
+        //passar a informação
+        Bundle pbundle = getIntent().getExtras();
+        IdUtilizador = pbundle.getString("IdUtilizador");
+        Longitude = pbundle.getDouble("Longitude");
+        lng = valueOf(Longitude);
+        Latitude = pbundle.getDouble("Latitude");
+        lat = valueOf(Latitude);
+
         btnCancelar = findViewById(R.id.btnCancelar);
         btnRegista = findViewById(R.id.btnRegista);
         buttonimg = findViewById(R.id.buttonimg);
-        edtTema = (EditText) findViewById(R.id.edtTema);
-        edtDescricao = (EditText) findViewById(R.id.edtDescricao);
+        editTema = (EditText) findViewById(R.id.edtTema);
+        editDescricao = (EditText) findViewById(R.id.edtDescricao);
 
         if (ContextCompat.checkSelfPermission(MapInformActivity.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -72,7 +81,26 @@ public class MapInformActivity extends AppCompatActivity {
         btnRegista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MapInformActivity.this, MapsActivity.class);
                 inserir();
+                Bundle bundle = new Bundle();
+                bundle.putString("IdUtilizador", IdUtilizador);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+
+
+            }
+        });
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapInformActivity.this, MapsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("IdUtilizador", IdUtilizador);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
             }
         });
         buttonimg.setOnClickListener(new View.OnClickListener() {
@@ -91,11 +119,17 @@ public class MapInformActivity extends AppCompatActivity {
         if (requestCode == 100) {
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             buttonimg.setImageBitmap(captureImage);
+            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+            captureImage.compress(Bitmap.CompressFormat.JPEG, 100, bs);
+            byte b[] = bs.toByteArray();
+            encoded = Base64.encodeToString(b, Base64.DEFAULT);
         }
     }
 
     public void inserir() {
-        String URL = VolleySingleton.URL + "ponto/pontos";
+        final String criar = "true";
+        String URL = VolleySingleton.URL + "ponto/criarPonto";
+
         StringRequest stringResquest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
@@ -103,11 +137,9 @@ public class MapInformActivity extends AppCompatActivity {
 
                         Log.d("Inserir Pontos", "onResponse: " + response.length());
                         try {
-                            if (response.length() == 7) {
-                                Intent intent = new Intent(MapInformActivity.this, LoginActivity.class);
-                                startActivity(intent);
+                            if (response.equals(criar)) {
                                 Toast.makeText(getApplicationContext(), "Ponto inserido com sucesso", Toast.LENGTH_SHORT).show();
-                                finish();
+
                             } else {
                                 Toast.makeText(getApplicationContext(), "O ponto já existe", Toast.LENGTH_SHORT).show();
 
@@ -142,8 +174,12 @@ public class MapInformActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("Tema", edtTema.getText().toString().trim());
-                params.put("Descricao", edtDescricao.getText().toString().trim());
+                params.put("Tema", editTema.getText().toString().trim());
+                params.put("Descricao", editDescricao.getText().toString().trim());
+                params.put("Longitude", lng);
+                params.put("Latitude", lat);
+                params.put("Imagem", encoded);
+                params.put("IdUtilizador", IdUtilizador);
 
                 return params;
             }
