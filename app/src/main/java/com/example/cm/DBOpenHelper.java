@@ -65,7 +65,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public void updateData(int id, String assunto, String local) {
+    public boolean updateData(int id, String assunto, String local) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(S_ASSUNTO, assunto);
         contentValues.put(S_LOCAL, local);
@@ -73,12 +73,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDB = this.getWritableDatabase();
         sqLiteDB.update(TABLE_NAME, contentValues, S_ID + "=" + id, null);
         sqLiteDB.close();
-
+        return true;
     }
 
-    public void deleteData(int id) {
+    public boolean deleteData(String id) {
         SQLiteDatabase sqLiteDb = this.getWritableDatabase();
         sqLiteDb.delete(TABLE_NAME, S_ID + "=" + id, null);
         sqLiteDb.close();
+
+        return true;
     }
 }

@@ -5,14 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar"></include>
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:elevation="4dp"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/toolbar"
         android:id="@+id/pontosList"
         android:layout_width="409dp"
         android:layout_height="729dp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="1dp" />
+
 
 </RelativeLayout>
 

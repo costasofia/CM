@@ -1,6 +1,7 @@
 package com.example.cm;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static androidx.recyclerview.widget.RecyclerView.*;
@@ -21,9 +23,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private OnNoteListener onNoteListener;
     Context context;
 
+
+    public ArrayList<Ponto> getPonto() {
+        return (ArrayList<Ponto>) this.pontos;
+    }
+
     public RecyclerAdapter(List<Ponto> pontos, Context context, OnNoteListener onNoteListener) {
-        this.context = context;
         this.pontos = pontos;
+        this.context = context;
         this.onNoteListener = onNoteListener;
     }
 
@@ -34,16 +41,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return new ViewHolder(v, onNoteListener);
     }
 
+    //carrega dados do WS
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
-        Ponto ponto = pontos.get(position);
-        // holder.tema.setText(ponto.getTema());
+
         holder.tema.setText(pontos.get(position).getTema());
-        String imagem = ponto.getImagem();
-        Picasso.get().load(VolleySingleton.URL + imagem).into(holder.img);
-
+        holder.descricao.setText(pontos.get(position).getDescricao());
+        holder.latitude.setText(String.valueOf(pontos.get(position).getLatitude()));
+        holder.longitude.setText(String.valueOf(pontos.get(position).getLongitude()));
+        //  String Imagem = pontos.get(position).getImagem();
+        //  Picasso.with(context).load(VolleySingleton.URL + Imagem).into(holder.img);
     }
-
 
     @Override
     public int getItemCount() {
@@ -52,15 +60,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView img;
-        TextView tema;
+        TextView tema, descricao, longitude, latitude;
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
-            img = itemView.findViewById(R.id.img);
+            //  img = itemView.findViewById(R.id.img);
             tema = itemView.findViewById(R.id.tema);
+            descricao = itemView.findViewById(R.id.descricao);
+            latitude = itemView.findViewById(R.id.latitude);
+            longitude = itemView.findViewById(R.id.longitude);
             this.onNoteListener = onNoteListener;
-
             itemView.setOnClickListener(this);
         }
 
@@ -72,8 +82,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public interface OnNoteListener {
         void onNoteClick(int position);
-
     }
-
 
 }

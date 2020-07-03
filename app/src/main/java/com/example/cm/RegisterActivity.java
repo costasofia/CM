@@ -68,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    //Faz o registo de um novo utilizador
     private void registar() {
         String URL = VolleySingleton.URL + "utilizador/register";
 
@@ -81,15 +82,15 @@ public class RegisterActivity extends AppCompatActivity {
                             if (response.length() == 11) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent);
-                                Toast.makeText(getApplicationContext(), "Registado com sucesso", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.UtilizadorRegistado), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Utilizador já existe no sistema", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.UtilizadorExiste), Toast.LENGTH_SHORT).show();
 
                             }
 
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "Erro na conexão com o WS", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.ErroWS), Toast.LENGTH_SHORT).show();
                         }
 
                     }

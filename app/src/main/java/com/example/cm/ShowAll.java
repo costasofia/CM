@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class ShowAll extends AppCompatActivity {
     ArrayList<InformModel> arrayList;
     DBOpenHelper dbOpenHelper;
     InformModel im;
+    ImageView btnBack, btnAdd;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,26 @@ public class ShowAll extends AppCompatActivity {
         arrayList = dbOpenHelper.getALLInformData();
 
         customAdapter = new CustomAdapter(this, arrayList);
+
+        btnAdd = (ImageView) findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowAll.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowAll.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         lvShow.setAdapter(customAdapter);
 

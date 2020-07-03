@@ -1,11 +1,13 @@
 package com.example.cm;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,9 +31,12 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,12 +50,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    FloatingActionButton dados;
+    FloatingActionButton list, add, back;
     String IdUtilizador;
     public double Latitude;
     public double Longitude;
     private GoogleMap mapa;
+    LocationManager locationManager;
+    LocationListener locationListener;
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            }
+        }
+    }
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +82,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Bundle bundle = getIntent().getExtras();
         IdUtilizador = bundle.getString("IdUtilizador");
 
-        dados = findViewById(R.id.dados);
-        dados.setOnClickListener(new View.OnClickListener() {
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        list = findViewById(R.id.list);
+        list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MapsActivity.this, RecyclerActivity.class);
@@ -76,49 +106,73 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
     }
+
+    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mapa = googleMap;
         getPonto();
-        placeMarkerOnPosition();
-
-        mapa.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                Longitude = latLng.longitude;
-                Latitude = latLng.latitude;
+            public void onLocationChanged(Location location) {
 
-                Intent intent = new Intent(MapsActivity.this, MapInformActivity.class);
-                //passa a informação
-                Bundle mbudle = new Bundle();
-                mbudle.putDouble("Longitude", Longitude);
-                mbudle.putDouble("Latitude", Latitude);
-                mbudle.putString("IdUtilizador", IdUtilizador);
-                intent.putExtras(mbudle);
-                startActivity(intent);
 
-                Toast.makeText(getApplicationContext(), Latitude + " " + Longitude + "\n" + IdUtilizador, Toast.LENGTH_SHORT).show();
-                finish();
+                LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                //Coordenadas em relação à localização
+                Latitude = location.getLatitude();
+                Longitude = location.getLongitude();
+                mapa.addMarker(new MarkerOptions()
+                        .position(userLocation)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
+                mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 7f));
+
+                //Botão para adicionar novo ponto em relação à posição atual
+                add = findViewById(R.id.add);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MapsActivity.this, MapInformActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("IdUtilizador", IdUtilizador);
+                        bundle.putDouble("Latitude", Latitude);
+                        bundle.putDouble("Longitude", Longitude);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
-        });
-    }
 
-    public void placeMarkerOnPosition() {
-//// check permissions to access resources /////////
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
 
-            return;
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+        if (Build.VERSION.SDK_INT < 23) {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        } else {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
         }
     }
 
+    //Vai buscar todos os pontos
     private void getPonto() {
-        String URL = VolleySingleton.URL + "ponto/pontoID";
+        String URL = VolleySingleton.URL + "ponto/getPontos";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -127,8 +181,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject object = response.getJSONObject(i);
-                                Ponto ponto = new Ponto(object.getInt("IdUtilizador"), object.getString("Tema"), object.getString("Descricao"),
-                                        object.getDouble("Longitude"), object.getDouble("Latitude"), object.getString("imagem"),
+                                Ponto ponto = new Ponto(object.getInt("IdUtilizador"),
+                                        object.getString("Tema"),
+                                        object.getString("Descricao"),
+                                        object.getDouble("Longitude"),
+                                        object.getDouble("Latitude"),
+                                        object.getString("Imagem"),
                                         object.getInt("IdUtilizador"));
 
                                 pontos.add(ponto);
@@ -141,10 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         for (Ponto ponto : pontos) {
                             MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position(new LatLng(ponto.getLatitude(), ponto.getLongitude()));
-                            mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ponto.getLatitude(), ponto.getLongitude()), 10f));
-                            //     markerOptions.title(ponto.getTema() + "\n" + ponto.getDescricao());
-                            //     mapa.setMyLocationEnabled(true);
-                            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                            markerOptions.title(ponto.getTema() + "," + ponto.getDescricao());
                             mapa.addMarker(markerOptions);
 
                         }

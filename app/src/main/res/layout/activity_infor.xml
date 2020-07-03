@@ -2,9 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff">
 
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar"></include>
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
     <TextView
+        android:layout_below="@id/toolbar"
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -14,11 +28,12 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:layout_marginTop="60dp"
+        android:layout_below="@+id/tvAssunto_Infor"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:id="@+id/tvLocal_Infor"
-        android:hint="@string/local"
+        android:hint="@string/descricao"
         android:gravity="top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -31,14 +46,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_margin="5dp"
             android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="#B00020"
             android:text="@string/update"
-            android:textColor="#FFF" />
+            android:textColor="#000" />
 
         <Button
             android:layout_margin="5dp"
@@ -48,7 +63,7 @@
             android:layout_weight="1"
             android:background="#B00020"
             android:text="@string/apagar"
-            android:textColor="#FFF" />
+            android:textColor="#000" />
 
     </LinearLayout>
 </RelativeLayout>

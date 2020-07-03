@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,25 +36,21 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     EditText editEmail, editPassword;
     String IdUtilizador;
+    ImageButton btnNotas;
     Button btnLogin;
     TextView btnRegistar;
-    // String URL = "http://192.168.1.67:5000/utilizador/login";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-
         editEmail = (EditText) findViewById(R.id.edtEmail);
         editPassword = (EditText) findViewById(R.id.edtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnRegistar = (TextView) findViewById(R.id.registar);
+        btnNotas = findViewById(R.id.btnNotas);
 
         btnRegistar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +59,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnNotas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ShowAll.class);
+                startActivity(intent);
+            }
+        });
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

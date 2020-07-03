@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#fff">
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".MapInformActivity">
 
     <include
         layout="@layout/toolbar"
@@ -17,35 +20,48 @@
         android:layout_marginLeft="10dp"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
-    <EditText
+    <ImageButton
+        android:id="@+id/buttonimg"
+        android:layout_width="711dp"
+        android:layout_height="116dp"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:id="@+id/edAssunto"
-        android:hint="@string/assunto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
 
     <EditText
-        android:layout_below="@+id/edAssunto"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:id="@+id/edLocal"
-        android:hint="@string/descricao"
+        android:layout_below="@+id/buttonimg"
+        android:id="@+id/edtTema"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="@string/assunto"
+        android:paddingLeft="5dp" />
+
+    <EditText
+        android:layout_below="@+id/edtTema"
+        android:id="@+id/edtDescricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="@string/descricao"
+        android:paddingLeft="5dp" />
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="290dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnRegista"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
@@ -53,8 +69,6 @@
             android:text="@string/add"
             android:textColor="#000" />
 
-
     </LinearLayout>
-
 
 </RelativeLayout>

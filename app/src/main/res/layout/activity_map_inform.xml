@@ -8,7 +8,20 @@
     android:padding="10dp"
     tools:context=".MapInformActivity">
 
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar"></include>
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
     <ImageButton
+        android:layout_below="@id/toolbar"
         app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
         android:id="@+id/buttonimg"
         android:layout_width="389dp"
@@ -16,22 +29,23 @@
         android:layout_weight="1" />
 
     <EditText
+        android:layout_below="@+id/buttonimg"
         android:id="@+id/edtTema"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
-
         android:hint="@string/assunto"
         android:paddingLeft="5dp" />
 
     <EditText
+        android:layout_below="@+id/edtTema"
         android:id="@+id/edtDescricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:hint="@string/descricao"
@@ -43,26 +57,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnCancelar"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#B00020"
-            android:text="@string/mensagem4"
-            android:textColor="#FFF" />
 
         <Button
             android:id="@+id/btnRegista"
-            android:layout_margin="5dp"
-
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="#B00020"
             android:text="@string/add"
-            android:textColor="#FFF" />
+            android:textColor="#000" />
 
     </LinearLayout>
 

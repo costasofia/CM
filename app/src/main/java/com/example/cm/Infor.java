@@ -1,24 +1,30 @@
 package com.example.cm;
 
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Infor extends AppCompatActivity {
     TextView tvAssunto, tvLocal;
     String s_Assunto, s_Local, s_Id;
+    ImageView btnBack;
 
     DBOpenHelper dbOpenHelper;
     int getId;
-    Button btnUpdate, btnDelete;
+    Button btnUpdate;
+    Button btnDelete;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +48,18 @@ public class Infor extends AppCompatActivity {
         tvLocal.setText(s_Local);
 
 
-        btnUpdate = (Button) findViewById(R.id.btnUpdate);
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Infor.this, ShowAll.class);
+                intent.putExtra("id", s_Id);
+                startActivity(intent);
+            }
+        });
+
+        btnUpdate = findViewById(R.id.btnUpdate);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -55,41 +72,21 @@ public class Infor extends AppCompatActivity {
             }
         });
 
-        btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnDelete = findViewById(R.id.btnDelete);
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                AlertDialog alertDialog = deleteAndConfirm();
-                alertDialog.show();
+
+                Intent intent = new Intent(Infor.this, ShowAll.class);
+                intent.putExtra("id", s_Id);
+                dbOpenHelper.deleteData(s_Id);
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotaApagada), Toast.LENGTH_SHORT).show();
+                startActivity(intent);
             }
         });
     }
 
-    private AlertDialog deleteAndConfirm() {
-
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setTitle(getResources().getString(R.string.mensagem2))
-                .setMessage(getResources().getString(R.string.mensagem3))
-                .setPositiveButton(getResources().getString(R.string.mensagem2), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dbOpenHelper.deleteData(getId);
-                        finish();
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(getResources().getString(R.string.mensagem4), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
-        return alertDialog;
-
-
-    }
-
 }
+

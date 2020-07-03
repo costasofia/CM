@@ -44,15 +44,13 @@ public class CustomAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.row, null);
         }
-//        TextView tvId = (TextView) convertView.findViewById(R.id.tvId);
+
         TextView tvAssunto = (TextView) convertView.findViewById(R.id.tvAssunto);
         TextView tvLocal = (TextView) convertView.findViewById(R.id.tvLocal);
 
         InformModel sm = Item.get(position);
         tvAssunto.setText(sm.getAssunto());
         tvLocal.setText(sm.getLocal());
-        //     tvId.setText(sm.getId());
-
 
         return convertView;
     }

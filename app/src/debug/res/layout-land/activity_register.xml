@@ -9,10 +9,14 @@
     android:background="#fff"
     tools:context=".RegisterActivity">
 
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar"></include>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="15dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -67,8 +71,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="270dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@android:color/darker_gray"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:hint="@string/pass"
         android:inputType="textPassword"
@@ -76,13 +80,13 @@
 
     <Button
         android:id="@+id/btnRegistar"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="340dp"
         android:background="#B00020"
         android:text="@string/novo"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:textSize="18sp" />
 
 

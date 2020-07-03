@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#fff">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <include
         layout="@layout/toolbar"
@@ -13,35 +15,31 @@
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     <EditText
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:id="@+id/txtTema"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edAssunto_Update"
-        android:layout_marginBottom="20sp"
-        android:hint="@string/assunto">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/assunto" />
 
-    </EditText>
 
     <EditText
-        android:layout_below="@+id/edAssunto_Update"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_below="@+id/txtTema"
+        android:id="@+id/txtDescricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edLocal_Update"
-        android:layout_marginBottom="20sp"
-        android:hint="@string/descricao">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/descricao" />
 
-    </EditText>
 
     <LinearLayout
         android:layout_alignParentBottom="true"
@@ -49,17 +47,26 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
         <Button
-            android:layout_margin="5dp"
-            android:textColor="#000"
-            android:background="#B00020"
-            android:id="@+id/btnUpdate_Update"
-            android:text="@string/update"
+            android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#B00020"
+            android:text="@string/update"
+            android:textColor="#000" />
 
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#B00020"
+            android:text="@string/apagar"
+            android:textColor="#000" />
 
     </LinearLayout>
+
 </RelativeLayout>

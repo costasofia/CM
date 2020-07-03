@@ -1,11 +1,15 @@
 package com.example.cm;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +20,9 @@ public class UpdateActivity extends AppCompatActivity {
     int getId;
     DBOpenHelper dbOpenHelper;
 
+    ImageView btnBack;
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +43,20 @@ public class UpdateActivity extends AppCompatActivity {
         edAssunto.setText(s_Assunto);
         edLocal.setText(s_Local);
 
-        btnUpdate = (Button) findViewById(R.id.btnUpdate_Update);
+
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(UpdateActivity.this, ShowAll.class);
+                intent.putExtra("id", s_Id);
+                startActivity(intent);
+            }
+        });
+
+        btnUpdate = findViewById(R.id.btnUpdate_Update);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
 
@@ -45,6 +65,7 @@ public class UpdateActivity extends AppCompatActivity {
                 dbOpenHelper.updateData(getId, edAssunto.getText().toString(), edLocal.getText().toString());
                 finish();
                 Intent intent = new Intent(UpdateActivity.this, ShowAll.class);
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.NotaAtualizada), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
 
             }

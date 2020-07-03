@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CM</string>
     <string name="assunto">Assunto</string>
-    <string name="local">Local</string>
+    <string name="descricao">Descrição</string>
     <string name="inicio">Bem-Vindo!</string>
     <string name="user">Utilizador</string>
     <string name="pass">Palavra-chave</string>
@@ -16,7 +16,20 @@
     <string name="mensagem4">Cancelar</string>
     <string name="novo">Registar</string>
     <string name="email">Email</string>
-    <string name="descricao">Descrição</string>
-
-
+    <string name="register">Criar nova conta</string>
+    <string name="registar">Registar</string>
+    <string name="name">Nome</string>
+    <string name="PontoInserido">Foi inserido o ponto </string>
+    <string name="PontoExiste">O ponto já existe </string>
+    <string name="ErroWS"> "Erro na conexão com o WS"</string>
+    <string name="PontoApagado"> "O ponto foi apagado"</string>
+    <string name="PontoNApagado"> "O ponto não foi apagado"</string>
+    <string name="PontoAlterado">"O ponto  foi alterado"</string>
+    <string name="PontoNAlterado">"O ponto não foi alterado"</string>
+    <string name="NotaI">"Nota inserida"</string>
+    <string name="NotaAtualizada"> "A nota foi atualizada"</string>
+    <string name="NotaApagada"> "A nota foi apagada"</string>
+    <string name="UtilizadorExiste"> "O Utilizador já existe no sistema"</string>
+    <string name="UtilizadorRegistado"> "O Utilizador foi registado"</string>
+    <string name="Notas"> "Notas"</string>
 </resources>

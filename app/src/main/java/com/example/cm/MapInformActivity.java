@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -43,7 +44,8 @@ import static java.lang.String.valueOf;
 
 public class MapInformActivity extends AppCompatActivity {
     ImageButton buttonimg;
-    Button btnCancelar, btnRegista;
+    ImageView btnBack;
+    Button btnRegista;
     EditText editTema, editDescricao;
     String Tema, Descricao, IdUtilizador;
     Double Latitude, Longitude;
@@ -55,7 +57,7 @@ public class MapInformActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_inform);
 
-        //passar a informação
+
         Bundle pbundle = getIntent().getExtras();
         IdUtilizador = pbundle.getString("IdUtilizador");
         Longitude = pbundle.getDouble("Longitude");
@@ -63,12 +65,12 @@ public class MapInformActivity extends AppCompatActivity {
         Latitude = pbundle.getDouble("Latitude");
         lat = valueOf(Latitude);
 
-        btnCancelar = findViewById(R.id.btnCancelar);
+        btnBack = (ImageView) findViewById(R.id.btnBack);
         btnRegista = findViewById(R.id.btnRegista);
         buttonimg = findViewById(R.id.buttonimg);
         editTema = (EditText) findViewById(R.id.edtTema);
         editDescricao = (EditText) findViewById(R.id.edtDescricao);
-
+//Premissão para a câmera
         if (ContextCompat.checkSelfPermission(MapInformActivity.this,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MapInformActivity.this,
@@ -77,7 +79,7 @@ public class MapInformActivity extends AppCompatActivity {
                     },
                     100);
         }
-
+//Botão para inserir novo ponto
         btnRegista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +94,8 @@ public class MapInformActivity extends AppCompatActivity {
 
             }
         });
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
+        //Botão para voltar
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapInformActivity.this, MapsActivity.class);
@@ -103,6 +106,7 @@ public class MapInformActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         buttonimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +116,8 @@ public class MapInformActivity extends AppCompatActivity {
             }
         });
     }
+
+    //CÂMERA
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -126,6 +132,7 @@ public class MapInformActivity extends AppCompatActivity {
         }
     }
 
+    //Inserir Novo Ponto No Mapa
     public void inserir() {
         final String criar = "true";
         String URL = VolleySingleton.URL + "ponto/criarPonto";
@@ -138,15 +145,14 @@ public class MapInformActivity extends AppCompatActivity {
                         Log.d("Inserir Pontos", "onResponse: " + response.length());
                         try {
                             if (response.equals(criar)) {
-                                Toast.makeText(getApplicationContext(), "Ponto inserido com sucesso", Toast.LENGTH_SHORT).show();
-
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.PontoInserido), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getApplicationContext(), "O ponto já existe", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.PontoExiste), Toast.LENGTH_SHORT).show();
 
                             }
 
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "Erro na conexão com o WS", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.ErroWS), Toast.LENGTH_SHORT).show();
                         }
 
                     }

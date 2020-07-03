@@ -2,9 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff">
 
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar"></include>
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
     <EditText
+        android:layout_below="@id/toolbar"
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -14,11 +28,12 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:layout_marginTop="60dp"
+        android:layout_below="@+id/edAssunto"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:id="@+id/edLocal"
-        android:hint="@string/local"
+        android:hint="@string/descricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -29,24 +44,15 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_margin="5dp"
-            android:textColor="#FFF"
-            android:background="@color/colorPrimary"
             android:id="@+id/btnAdd"
-            android:text="@string/add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
             android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:background="@color/colorPrimary"
             android:layout_weight="1"
-            android:id="@+id/btnShowAll"
-            android:text="@string/see" />
+            android:background="#B00020"
+            android:text="@string/add"
+            android:textColor="#000" />
+
 
     </LinearLayout>
 
